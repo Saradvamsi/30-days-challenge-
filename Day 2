@@ -1,0 +1,37 @@
+268. Missing Number
+
+  class Solution:
+    def missingNumber(self, nums):
+        x = 0
+        n = len(nums)
+        for i in range(n + 1):
+            x ^= i
+        for v in nums:
+            x ^= v
+        return x
+
+
+
+217. Contains Duplicate   
+
+class Solution:
+    def containsDuplicate(self, nums):
+        seen = set()
+        for num in nums:
+            if num in seen:
+                return True
+            seen.add(num)
+        return False
+
+
+  387. First Unique Character in a String
+
+  class Solution:
+    def firstUniqChar(self, s: str) -> int:
+        from collections import Counter
+        freq = Counter(s)
+        
+        for i, ch in enumerate(s):
+            if freq[ch] == 1:
+                return i
+        return -1
