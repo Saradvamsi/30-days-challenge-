@@ -1,0 +1,36 @@
+9)palindrome-number
+
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        temp=str(x)
+        v=temp[::-1]
+        return temp==v
+
+13)roman-to-integer
+
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        dict={"I":1,"V":5,"X":10,"L":50,"C":100,"D":500,"M":1000}
+        total=0
+        for i in range(len(s)-1):
+            if dict[s[i]]<dict[s[i+1]]:
+                total-=dict[s[i]]
+            else:
+                total+=dict[s[i]]
+        total+=dict[s[-1]]
+        return total
+        
+
+58)Length of last word
+
+class Solution:
+    def lengthOfLastWord(self, s: str) -> int:
+        m=s.strip()
+        n=len(m)
+        count=0
+        for i in range(n-1,-1,-1):
+            count+=1
+            if m[i]==" ":
+                count-=1
+                break
+        return(count)
