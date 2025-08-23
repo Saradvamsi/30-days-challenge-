@@ -1,0 +1,48 @@
+136)Single Number
+
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        xorr = 0
+        for num in nums:
+            xorr ^= num
+        return xorr
+
+88)merge-sorted0array
+
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        if len(nums1) == m+n and len(nums2) == n:
+        j = 0  
+        for i in range(len(nums1)):
+            if nums1[i] == 0 and j < n:
+                nums1[i] = nums2[j]  
+                j += 1
+        nums1.sort()
+        return(nums1)
+
+350)intersection of two arrays ii
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        dici1={}
+        dici2={}
+        ans=[]
+        for num in nums1:
+            if num not in dici1:
+                dici1[num]=1
+            else:
+                dici1[num]+=1
+        print(dici1)
+        for num in nums2:
+            if num not in dici2:
+                dici2[num]=1
+            else:
+                dici2[num]+=1
+        print(dici2)
+        for key in dici1:
+            if key in dici2:
+                count=min(dici1[key],dici2[key]) 
+                ans.extend(count*[key])
+        return(ans)
