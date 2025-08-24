@@ -1,0 +1,40 @@
+4)median of two sorted arrays
+
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        temp = 0
+        com = nums1 + nums2
+        com.sort()
+        v = len(com)
+        if v % 2 == 0:
+            temp = (com[v // 2 - 1] + com[v // 2]) / 2
+        else:
+            temp = com[v // 2]
+
+        return round(temp,5)
+
+
+202)happy number
+
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        seen=[]
+        while n!=1 and n not in seen:
+            seen.append(n)
+            digits = [int(x) for x in str(n)]
+            n=sum(d**2 for d in digits)
+        if n==1:
+            return True
+        else:
+            return False
+
+191)number of 1 bits
+
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        count=0
+        while n >0:
+            if n%2==1:
+                count+=1
+            n=n//2
+        return(count)
