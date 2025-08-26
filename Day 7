@@ -1,0 +1,73 @@
+6. Zigzag Conversion
+
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1 or numRows >= len(s):
+            return s
+        
+        rows = [''] * numRows
+        cur_row = 0
+        going_down = False
+        
+        for char in s:
+            rows[cur_row] += char
+            if cur_row == 0 or cur_row == numRows - 1:
+                going_down = not going_down
+            cur_row += 1 if going_down else -1
+        
+        return ''.join(rows)
+
+443. String Compression
+
+class Solution:
+    def compress(self, chars: list[str]) -> int:
+        write = 0
+        read = 0
+        n = len(chars)
+        
+        while read < n:
+            char = chars[read]
+            count = 0
+            
+            while read < n and chars[read] == char:
+                read += 1
+                count += 1
+            
+            chars[write] = char
+            write += 1
+            
+            if count > 1:
+                for digit in str(count):
+                    chars[write] = digit
+                    write += 1
+        
+        return write
+
+179. Largest Number
+
+from functools import cmp_to_key
+
+class Solution:
+    def largestNumber(self, nums: list[int]) -> str:
+        nums = list(map(str, nums))
+        def compare(x, y):
+            if x + y > y + x:
+                return -1   
+            elif x + y < y + x:
+                return 1   
+            else:
+                return 0
+        
+        nums.sort(key=cmp_to_key(compare))
+        
+        result = ''.join(nums)
+        
+        return '0' if result[0] == '0' else result
+
+
+
+
+
+
+
+
