@@ -1,0 +1,65 @@
+496. Next Greater Element I
+
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        ans=[]
+        for num in nums1:
+            index = nums2.index(num)  # Find position of num in nums2
+            next_greater = -1
+            for j in range(index+1, len(nums2)):  # Look ahead in nums2
+                if nums2[j] > num:
+                    next_greater = nums2[j]
+                    break
+            ans.append(next_greater)
+
+        return ans
+
+
+206. Reverse Linked List
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev=None
+        current=head
+        while current:
+            temp=current.next
+            current.next=prev
+            prev=current
+            current=temp
+        return prev
+
+2. Add Two Numbers
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy=ListNode()
+        current=dummy
+        carry=0
+        while l1 and l2:
+            val1=l1.val if l1 else 0
+            val2=l2.val if l2 else 0
+            s=val1+val2+carry
+            carry=s//10
+            val=s%10
+            current.next=ListNode(val)
+        
+            current=current.next
+            l1=l1.next if l1 else None
+            l2=l2.next if l2 else None
+
+        if carry:
+            current.next=ListNode(carry)
+        return dummy.next
+
+
+
