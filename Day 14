@@ -1,0 +1,58 @@
+441)arranging coins
+
+class Solution:
+    def arrangeCoins(self, n: int) -> int:
+        return int((math.sqrt(8 * n + 1) - 1) // 2)
+
+1011)capacity-to-ship-packages-within-d-days
+
+class Solution:
+  def shipWithinDays(self, weights: List[int], days: int) -> int:
+    l = max(weights)
+    r = sum(weights)
+
+    def shipDays(shipCapacity: int) -> int:
+      days = 1
+      capacity = 0
+      for weight in weights:
+        if capacity + weight > shipCapacity:
+          days += 1
+          capacity = weight
+        else:
+          capacity += weight
+      return days
+
+    while l < r:
+      m = (l + r) // 2
+      if shipDays(m) <= days:
+        r = m
+      else:
+        l = m + 1
+
+    return l
+
+
+410)split-array-largest-sum
+
+class Solution:
+    def splitArray(self, nums: list[int], k: int) -> int:
+        low, high = max(nums), sum(nums)
+        def ok(x):
+            cnt, curr = 1, 0
+            for v in nums:
+                if curr + v <= x:
+                    curr += v
+                else:
+                    cnt += 1
+                    curr = v
+                    if cnt > k:
+                        return False
+            return True
+            
+        while low < high:
+            mid = (low + high) // 2
+            if ok(mid):
+                high = mid
+            else:
+                low = mid + 1
+        return low
