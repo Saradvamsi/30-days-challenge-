@@ -1,0 +1,51 @@
+1047. Remove All Adjacent Duplicates In String
+
+class Solution:
+    def removeDuplicates(self, s: str) -> str:
+        stack = []
+        for char in s:
+            if stack and stack[-1] == char:
+                stack.pop()   # remove duplicate
+            else:
+                stack.append(char)
+        return "".join(stack)
+
+1209. Remove All Adjacent Duplicates in String II
+
+class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        stack = []  # stores [char, count]
+        
+        for char in s:
+            if stack and stack[-1][0] == char:
+                stack[-1][1] += 1  # increment count
+                if stack[-1][1] == k:
+                    stack.pop()  # remove k duplicates
+            else:
+                stack.append([char, 1])
+        
+        # rebuild string
+        result = []
+        for char, count in stack:
+            result.append(char * count)
+        return "".join(result)
+
+856. Score of Parentheses
+
+
+class Solution:
+    def scoreOfParentheses(self, s: str) -> int:
+        stack = [0]  # base frame
+        
+        for char in s:
+            if char == '(':
+                stack.append(0)
+            else:
+                v = stack.pop()
+                if v == 0:  # "()"
+                    score = 1
+                else:       # "(A)"
+                    score = 2 * v
+                stack[-1] += score
+        
+        return stack.pop()
