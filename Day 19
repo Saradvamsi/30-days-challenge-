@@ -1,0 +1,49 @@
+26)remive-duplicates-from-sorted-array
+
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 1
+
+        for j in range(1, len(nums)):
+            if nums[j] != nums[i - 1]:
+                nums[i] = nums[j]
+                i += 1
+        
+        return i
+
+88)merge-sorted-array
+
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        midx = m - 1
+        nidx = n - 1 
+        right = m + n - 1
+
+        while nidx >= 0:
+            if midx >= 0 and nums1[midx] > nums2[nidx]:
+                nums1[right] = nums1[midx]
+                midx -= 1
+            else:
+                nums1[right] = nums2[nidx]
+                nidx -= 1
+
+            right -= 1
+
+
+360)intersection-of-two-array-ii
+
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        # New out array
+        out = []
+        # Get a hold of the values along with their frequencies
+        ar1 = Counter(nums1)
+        ar2 = Counter(nums2)
+        # Check for the min repetition of the values in both the arrays
+        for i,j in ar1.items():
+            if i in ar2:
+                fre = min(j,ar2[i])
+                for _ in range(fre):
+                    out.append(i)
+        # Return the new out
+        return out
