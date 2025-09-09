@@ -1,0 +1,68 @@
+90)subset-ii
+
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = [[]]
+        
+        for num in nums:
+            new_subsets = []
+            for subset in res:
+                new_set = subset + [num]
+                if new_set not in res:
+                    new_subsets.append(new_set)
+            res.extend(new_subsets)
+        
+        return res
+
+40)combination-sum-ii
+
+class Solution(object):
+    def combinationSum2(self, candidates, target):
+
+        result = []
+        path = []
+        candidates.sort()
+
+        def run(idx, current_sum):
+            if current_sum == target:
+                result.append(path[:])
+                return
+
+            if current_sum > target or idx >= len(candidates):
+                return 
+
+            # INCLUDE current element
+            path.append(candidates[idx])
+            run(idx + 1, current_sum + candidates[idx])
+            path.pop()
+
+            # EXCLUDE current element: skip all its duplicates
+            j = idx + 1
+            while j < len(candidates) and candidates[j] == candidates[idx]:
+                j += 1
+            run(j, current_sum)
+
+        run(0, 0)
+        return result
+
+47)permutations-ii
+
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        
+        permutations = []
+        counter = Counter(nums)
+        def findAllPermutations(res):
+            if len(res) == len(nums):
+                permutations.append(res)
+                return 
+            
+            for key in counter:
+                if counter[key]:
+                    counter[key]-=1 # decrement visited key
+                    findAllPermutations(res + [key])    
+                    counter[key]+=1 # restore the state of visited key to find the next path
+                
+        findAllPermutations([])
+        return permutations
