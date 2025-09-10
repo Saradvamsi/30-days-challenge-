@@ -1,0 +1,44 @@
+Binary Tree Preorder Traversal
+
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> list[int]:
+        res = []
+        def dfs(node):
+            if not node:
+                return
+            res.append(node.val)   # visit root
+            dfs(node.left)         # left
+            dfs(node.right)        # right
+        dfs(root)
+        return res
+
+
+Binary Tree Inorder Traversal
+
+class Solution:
+    def inorderTraversal(self, root: TreeNode) -> list[int]:
+        res = []
+        def dfs(node):
+            if not node:
+                return
+            dfs(node.left)         # left
+            res.append(node.val)   # root
+            dfs(node.right)        # right
+        dfs(root)
+        return res
+
+
+Binary Tree Postorder Traversal
+
+
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> list[int]:
+        res = []
+        def dfs(node):
+            if not node:
+                return
+            dfs(node.left)         # left
+            dfs(node.right)        # right
+            res.append(node.val)   # root
+        dfs(root)
+        return res
