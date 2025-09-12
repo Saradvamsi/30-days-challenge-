@@ -1,0 +1,78 @@
+543. Diameter of Binary Tree
+
+
+
+  # Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        self.diameter = 0
+        
+        def height(node):
+            if not node:
+                return 0
+            left_height = height(node.left)
+            right_height = height(node.right)
+            
+            # Update diameter at each node
+            self.diameter = max(self.diameter, left_height + right_height)
+            
+            # Return height of current node
+            return 1 + max(left_height, right_height)
+        
+        height(root)
+        return self.diameter
+
+
+      101. Symmetric Tree
+
+
+  # Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+
+        def isMirror(t1, t2):
+            if not t1 and not t2:
+                return True
+            if not t1 or not t2:
+                return False
+            return (t1.val == t2.val) and \
+                   isMirror(t1.left, t2.right) and \
+                   isMirror(t1.right, t2.left)
+
+        return isMirror(root.left, root.right)
+
+
+      100. Same Tree
+
+
+
+          # Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        if not p and not q:
+            return True
+        if not p or not q:
+            return False
+        return (p.val == q.val) and \
+               self.isSameTree(p.left, q.left) and \
+               self.isSameTree(p.right, q.right)
