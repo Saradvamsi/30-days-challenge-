@@ -1,0 +1,54 @@
+Range Sum of BST
+
+
+class Solution:
+    def rangeSumBST(self, root, low, high):
+        if not root:
+            return 0
+        
+        if root.val < low:   # skip entire left subtree
+            return self.rangeSumBST(root.right, low, high)
+        elif root.val > high:  # skip entire right subtree
+            return self.rangeSumBST(root.left, low, high)
+        else:  # value is within [low, high]
+            return (root.val +
+                    self.rangeSumBST(root.left, low, high) +
+                    self.rangeSumBST(root.right, low, high))
+
+
+700. Search in a Binary Search Tree
+
+
+class Solution:
+    def searchBST(self, root, val):
+        while root:
+            if root.val == val:
+                return root
+            elif val < root.val:
+                root = root.left
+            else:
+                root = root.right
+        return None
+
+
+404. Sum of Left Leaves
+
+
+
+class Solution:
+    def sumOfLeftLeaves(self, root):
+        if not root:
+            return 0
+        
+        total = 0
+        if root.left:
+            # check if left child is a leaf
+            if not root.left.left and not root.left.right:
+                total += root.left.val
+            else:
+                total += self.sumOfLeftLeaves(root.left)
+        
+        total += self.sumOfLeftLeaves(root.right)
+        return total
+
+
