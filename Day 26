@@ -1,0 +1,71 @@
+695. Max Area of Island
+
+class Solution:
+    def maxAreaOfIsland(self, grid):
+        rows, cols = len(grid), len(grid[0])
+        visited = set()
+        
+        def dfs(r, c):
+            if (r < 0 or r >= rows or 
+                c < 0 or c >= cols or 
+                grid[r][c] == 0 or 
+                (r, c) in visited):
+                return 0
+            
+            visited.add((r, c))
+            area = 1
+            area += dfs(r+1, c)
+            area += dfs(r-1, c)
+            area += dfs(r, c+1)
+            area += dfs(r, c-1)
+            return area
+        
+        max_area = 0
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 1 and (r, c) not in visited:
+                    max_area = max(max_area, dfs(r, c))
+        
+        return max_area
+
+
+463. Island Perimeter
+
+class Solution:
+    def islandPerimeter(self, grid):
+        rows, cols = len(grid), len(grid[0])
+        perimeter = 0
+        
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 1:
+                    # Each land has 4 sides initially
+                    perimeter += 4
+                    
+                    # Check top
+                    if r > 0 and grid[r-1][c] == 1:
+                        perimeter -= 2
+                        
+                    # Check left
+                    if c > 0 and grid[r][c-1] == 1:
+                        perimeter -= 2
+                        
+        return perimeter
+
+
+
+841. Keys and Rooms
+
+class Solution:
+    def canVisitAllRooms(self, rooms):
+        visited = set()
+        
+        def dfs(room):
+            if room in visited:
+                return
+            visited.add(room)
+            for key in rooms[room]:
+                dfs(key)
+        
+        dfs(0)  # Start from room 0
+        return len(visited) == len(rooms)
