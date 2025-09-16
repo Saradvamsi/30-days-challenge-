@@ -1,0 +1,57 @@
+139)word break
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        
+        def construct(current,wordDict, memo={}):
+            if current in memo:
+                return memo[current]
+
+            if not current:
+                return True
+
+            for word in wordDict:
+                if current.startswith(word):
+                    new_current = current[len(word):]
+                    if construct(new_current,wordDict,memo):
+                        memo[current] = True
+                        return True
+
+            memo[current] = False
+            return False
+
+        return construct(s,wordDict)
+
+494)target sum
+
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        memo = {}
+        def bt(index, current_sum):
+            if index == len(nums):
+                return 1 if current_sum == target else 0
+            
+            #check cache
+            if (index, current_sum) in memo:
+                return memo[(index, current_sum)]
+            
+            addition = bt(index+1, current_sum + nums[index])
+            subtract = bt(index+1, current_sum - nums[index])
+
+            #add to cache
+            memo[(index, current_sum)] = addition +subtract
+
+            return addition + subtract
+        
+        return bt(0, 0)
+
+322)coin change
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        dp=[amount+1]*(amount+1)
+        dp[0]=0
+        for i in range(1,amount+1):
+            for coin in coins:
+                if i-coin>=0:
+                    dp[i]=min(dp[i],1+dp[i-coin])
+        return dp[amount] if dp[amount]!=amount+1 else -1
